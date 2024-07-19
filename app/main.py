@@ -61,6 +61,11 @@ async def main() -> None:
             )
         ),
     )
+    await run_parallel(
+        hue_light.disconnect(),
+        speaker.disconnect(),
+        toilet.disconnect(),
+    )
 
 
 if __name__ == "__main__":
