@@ -7,17 +7,28 @@ from iot.message import Message, MessageType
 from iot.service import IOTService
 
 
+def async_program_state_decorator(func):
+    async def wrapper(*args):
+        print("=====RUNNING PROGRAM======")
+        result = await func(*args)
+        print("=====END OF PROGRAM======")
+        return result
+    return wrapper
+
+
 async def run_sequence(*functions: Awaitable[Any]) -> None:
     for function in functions:
         await function
 
 
+@async_program_state_decorator
 async def run_parallel(*functions: Awaitable[Any]) -> None:
     await asyncio.gather(*functions)
 
 
 async def main() -> None:
     service = IOTService()
+
 
     hue_light = HueLightDevice()
     speaker = SmartSpeakerDevice()
