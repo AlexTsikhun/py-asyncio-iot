@@ -72,7 +72,7 @@ async def main() -> None:
             )
         ),
     )
-    await run_parallel(
+    await asyncio.gather(
         hue_light.disconnect(),
         speaker.disconnect(),
         toilet.disconnect(),
